@@ -1,14 +1,16 @@
 {
   "name": "cypress_automation",
   "version": "1.0.0",
+  "description": "Este projeto contém testes automatizados para o site SauceDemo usando Cypress.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test": "npm run cy:run"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "cypress": "^14.5.0"
   }

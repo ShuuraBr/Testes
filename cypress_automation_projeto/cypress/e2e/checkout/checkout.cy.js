@@ -1,11 +1,16 @@
 describe("Testes de Checkout", () => {
+  const productName = "Sauce Labs Backpack"; // Nome do produto para validação
+
   beforeEach(() => {
-    cy.visit("/");
-    cy.get("#user-name").type("standard_user");
-    cy.get("#password").type("secret_sauce");
-    cy.get("#login-button").click();
-    cy.url().should("include", "/inventory.html");
-    cy.get(".btn_primary.btn_inventory").first().click();
+    // 1. Fazer login
+    cy.login("standard_user", "secret_sauce");
+
+    // 2. Preparar o cenário: adicionar o item específico e ir para o checkout
+    cy.contains(".inventory_item_name", productName)
+      .parents(".inventory_item")
+      .find(".btn_primary.btn_inventory")
+      .click();
+
     cy.get(".shopping_cart_link").click();
     cy.url().should("include", "/cart.html");
     cy.get(".checkout_button").click();
@@ -18,6 +23,11 @@ describe("Testes de Checkout", () => {
     cy.get("#postal-code").type("12345");
     cy.get(".cart_button").click();
     cy.url().should("include", "/checkout-step-two.html");
+
+    // VALIDAÇÃO ADICIONADA
+    // Valida se o item no resumo da compra está correto
+    cy.get(".inventory_item_name").should("contain", productName);
+
     cy.get(".cart_button").click();
     cy.url().should("include", "/checkout-complete.html");
     cy.get(".complete-header").should("contain", "THANK YOU FOR YOUR ORDER");
@@ -28,4 +38,3 @@ describe("Testes de Checkout", () => {
     cy.url().should("include", "/cart.html");
   });
 });
-

@@ -1,10 +1,7 @@
 describe("Testes de Carrinho", () => {
   beforeEach(() => {
-    cy.visit("/");
-    cy.get("#user-name").type("standard_user");
-    cy.get("#password").type("secret_sauce");
-    cy.get("#login-button").click();
-    cy.url().should("include", "/inventory.html");
+    // Usando o comando personalizado
+    cy.login("standard_user", "secret_sauce");
   });
 
   it("Deve adicionar múltiplos produtos ao carrinho", () => {
@@ -31,4 +28,3 @@ describe("Testes de Carrinho", () => {
     cy.url().should("include", "/inventory.html");
   });
 });
-
